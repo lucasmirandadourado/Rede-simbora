@@ -34,18 +34,10 @@ public class SolicitacaoVagasTest {
 		solicitacao = new SolicitacaoVagasBusiness();
 
 		usuario.encerrarSistema();
-		carona.getCaronas().clear();
+		carona.encerrarSistema();
 		sessao.getSessoes().clear();
-		solicitarVagas.solicitacoes.clear();
-	}
-
-	@Test
-	public void criarUsuario() {
-		usuario.usuarios.clear();
-		carona.getCaronas().clear();
-		sessao.getSessoes().clear();
-		solicitarVagas.solicitacoes.clear();
-
+		solicitarVagas.encerrarSistema();
+		
 		usuario.criarUsuario("mark", "m@rk", "Mark Zuckerberg",
 				"Palo Alto, California", "mark@facebook.com");
 
@@ -54,35 +46,38 @@ public class SolicitacaoVagasTest {
 		} catch (SessaoException e) {
 			e.getMessage();
 		}
+	}
 
+	@Test
+	public void criarUsuario() {
 		// Cadastro de caronas
 		// Cadastro 0
 		try {
 			carona.cadastrarCarona("mark", "Cajazeiras", "Patos", "20/07/2013",
 					"14:00", "4");
 		} catch (CaronaException e) {
-			e.getMessage();
+			fail();
 		}
 		// Cadastro id = 1
 		try {
 			carona.cadastrarCarona("mark", "São Francisco", "Palo Alto",
 					"12/09/2013", "21:00", "2");
 		} catch (CaronaException e) {
-			e.getMessage();
+			fail();
 		}
 		// Casdastro id = 2
 		try {
 			carona.cadastrarCarona("mark", "Campina Grande", "João Pessoa",
 					"01/06/2013", "12:00", "1");
 		} catch (CaronaException e) {
-			e.getMessage();
+			fail();
 		}
 		// Casdastro id = 3
 		try {
 			carona.cadastrarCarona("mark", "Campina Grande", "João Pessoa",
 					"02/06/2013", "12:00", "3");
 		} catch (CaronaException e) {
-			e.getMessage();
+			fail();
 		}
 		// Casdastro id = 4
 		try {
@@ -275,20 +270,8 @@ public class SolicitacaoVagasTest {
 	}
 
 	@Test
-	public void todosErros() {
-		usuario.usuarios.clear();
-		carona.getCaronas().clear();
-		sessao.getSessoes().clear();
-		solicitarVagas.solicitacoes.clear();
+	public void todosErrosPassagemParametros() {
 
-		usuario.criarUsuario("mark", "m@rk", "Mark Zuckerberg",
-				"Palo Alto, California", "mark@facebook.com");
-
-		try {
-			sessao.abrirSessao("mark", "m@rk");
-		} catch (SessaoException e1) {
-			e1.getMessage();
-		}
 		try {
 			carona.cadastrarCarona("mark", "Campina Grande", "João Pessoa",
 					"22/10/2014", "17:00", "3");
@@ -326,28 +309,10 @@ public class SolicitacaoVagasTest {
 
 	}
 
-	@Test
-	public void zeraSistema() {
-		solicitarVagas.encerrarSistema();
-	}
 
 	@Test
 	public void solicitacoesVagasUS05() {
-		usuario.encerrarSistema();
-		carona.encerrarSistema();
-		sessao.getSessoes().clear();
-		solicitarVagas.encerrarSistema();
-		solicitacao.encerrarSistema();
 		
-		usuario.criarUsuario("mark", "m@rk", "Mark Zuckerberg",
-				"Palo Alto, California", "mark@facebook.com");
-		
-		try {
-			sessao.abrirSessao("mark", "m@rk");
-		} catch (SessaoException e) {
-			fail();
-		}
-
 		// Caddastrar Caronas
 		// Carona1ID
 		try {
@@ -404,25 +369,25 @@ public class SolicitacaoVagasTest {
 			fail();
 		}
 
-		solicitacao.solicitarVaga("bill", "3");
+		assertEquals("1V",solicitacao.solicitarVaga("bill", "3"));
 
 		try {
 			assertEquals("Campina Grande",
-					solicitarVagas.getAtributoSolicitacao("0V", "origem"));
+					solicitarVagas.getAtributoSolicitacao("1V", "origem"));
 		} catch (CaronaException e) {
 			fail();
 		}
 
 		try {
 			assertEquals("João Pessoa",
-					solicitarVagas.getAtributoSolicitacao("0V", "destino"));
+					solicitarVagas.getAtributoSolicitacao("1V", "destino"));
 		} catch (CaronaException e) {
 			fail();
 		}
 
 		try {
 			assertEquals("Mark Zuckerberg",
-					solicitarVagas.getAtributoSolicitacao("0V",
+					solicitarVagas.getAtributoSolicitacao("1V",
 							"Dono da carona"));
 		} catch (CaronaException e) {
 			fail();
@@ -430,7 +395,7 @@ public class SolicitacaoVagasTest {
 
 		try {
 			assertEquals("William Henry Gates III",
-					solicitarVagas.getAtributoSolicitacao("0V",
+					solicitarVagas.getAtributoSolicitacao("1V",
 							"Dono da solicitacao"));
 		} catch (CaronaException e) {
 			fail();

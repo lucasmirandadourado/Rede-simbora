@@ -196,7 +196,7 @@ public class ReviewCaronaTest {
 		}
 		
 		try {
-			assertEquals("[01]", perfilCaroneiro.getAtributoPerfil("bill", "historico de vagas em caronas"));
+			assertEquals("[0,1]", perfilCaroneiro.getAtributoPerfil("bill", "historico de vagas em caronas"));
 		} catch (PerfilException e) {
 			e.printStackTrace();
 			fail();
@@ -271,7 +271,7 @@ public class ReviewCaronaTest {
 		}
 		
 		try {
-			assertEquals("[01]", perfilCaroneiro.getAtributoPerfil("bill", "historico de vagas em caronas"));
+			assertEquals("[0,1]", perfilCaroneiro.getAtributoPerfil("bill", "historico de vagas em caronas"));
 		} catch (PerfilException e) {
 			e.printStackTrace();
 			fail();

@@ -35,15 +35,7 @@ public class CaronaTest {
 		usuarioBusiness.encerrarSistema();
 		sessaoBusiness.getSessoes().clear();
 		carona.encerrarSistema();
-	}
-
-	@Test
-	public void localizarCadastrarCarona() {
-		usuarioBusiness.encerrarSistema();
-		sessaoBusiness.getSessoes().clear();
-		carona.getCaronas().clear();
 		
-		// Serão criados 3 usuarios. (cria usuario, abrir sessao e criarCarona)
 		usuarioBusiness.criarUsuario("mark", "m@rk", "Mark Zuckerberg",
 				"Palo Alto, California", "mark@facebook.com");
 
@@ -52,6 +44,11 @@ public class CaronaTest {
 		} catch (SessaoException e) {
 			assertEquals("Login inválido", e.getMessage());
 		}
+	}
+
+	@Test
+	public void localizarCadastrarCarona() {
+		
 
 		try { 
 			assertEquals("{}", carona.localizarCarona("mark",
@@ -77,18 +74,6 @@ public class CaronaTest {
 
 	@Test
 	public void cadastrarCarona() {
-		carona.caronas.clear();
-		usuarioBusiness.encerrarSistema();
-		sessaoBusiness.getSessoes().clear();
-		
-		usuarioBusiness.criarUsuario("mark", "m@rk", "Mark Zuckerberg",
-				"Palo Alto, California", "mark@facebook.com");
-
-		try {
-			sessaoBusiness.abrirSessao("mark", "m@rk");
-		} catch (SessaoException e) {
-			assertEquals("Login inválido", e.getMessage());
-		}
 
 		try {
 			assertEquals("0",
@@ -213,23 +198,11 @@ public class CaronaTest {
 			assertEquals("{0,1,2,3,4}", carona.localizarCarona("mark", "", ""));
 		} catch (CaronaException e) {
 			fail();
-		}
-		
+		}		
 	}
 
 	@Test
 	public void cadastrarCaronasTest() {
-		usuarioBusiness.usuarios.clear();
-		carona.encerrarSistema();
-		
-		usuarioBusiness.criarUsuario("mark", "m@rk", "Mark Zuckerberg",
-				"Palo Alto, California", "mark@facebook.com");
-
-		try {
-			sessaoBusiness.abrirSessao("mark", "m@rk");
-		} catch (SessaoException e) {
-			assertEquals("Login inválido", e.getMessage());
-		}
 		
 		try {
 			carona.cadastrarCarona(null, "Campina Grande", "João Pessoa", "23/06/2013", "16:00", "3");
@@ -464,18 +437,6 @@ public class CaronaTest {
 
 	@Test
 	public void localizarCaronasTests () {
-		usuarioBusiness.encerrarSistema();
-		sessaoBusiness.getSessoes().clear();
-		carona.encerrarSistema();
-		
-		usuarioBusiness.criarUsuario("mark", "m@rk", "Mark Zuckerberg",
-				"Palo Alto, California", "mark@facebook.com");
-
-		try {
-			sessaoBusiness.abrirSessao("mark", "m@rk");
-		} catch (SessaoException e) {
-			assertEquals("Login inválido", e.getMessage());
-		}
 
 		try {
 			assertEquals("{}", carona.localizarCarona("mark", "Campina Grande", "João Pessoa"));
@@ -545,6 +506,11 @@ public class CaronaTest {
 		} catch (CaronaException e) {
 			fail();
 		}
+	}
+	
+	@Test
+	public void errosDeEntrada() {
+	
 		
 		// Testar os possiveis erros
 		try {

@@ -34,15 +34,15 @@ public class ComfirmacaoDePresencaTest {
 		usuario.criarUsuario("bill", "bilz@o", "Willian Henry Gates III", "Medina, Washington", "billzin@gmail.com");
 		usuario.criarUsuario("vader", "d4rth", "Anakin Skywalker", "Death Star I", "darthvader.com");
 		
-	}
-
-	@Test
-	public void confirmacaoTest() {
 		try {
 			sessao.abrirSessao("mark", "m@rk");
 		} catch (SessaoException e) {
 			fail();
 		}
+	}
+
+	@Test
+	public void confirmacaoTest() { 
 		
 		try {
 			carona.cadastrarCarona("mark", "Campina Grande", "João Pessoa", "02/06/2013", "12:00", "3");
@@ -69,7 +69,5 @@ public class ComfirmacaoDePresencaTest {
 		} catch (Exception e) {
 			fail();
 		}
-		
-		
 	}
 }

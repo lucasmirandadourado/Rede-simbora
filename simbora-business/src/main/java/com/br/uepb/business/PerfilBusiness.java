@@ -7,10 +7,7 @@ import org.apache.log4j.Logger;
 
 import com.br.uepb.constants.PerfilException;
 import com.br.uepb.constants.UsuarioException;
-import com.br.uepb.dao.UsuarioDao;
-import com.br.uepb.dao.impl.UsuarioDaoImp;
 import com.br.uepb.domain.CaronaDomain;
-import com.br.uepb.domain.SessaoDomain;
 import com.br.uepb.domain.SolicitacaoVagasDomain;
 import com.br.uepb.domain.UsuarioDomain;
 
@@ -112,12 +109,17 @@ public class PerfilBusiness {
 			}
 			return caron + "]";
 		}
-
+		
 		if (atributo.equals("historico de vagas em caronas")) {
+			boolean flag = true;// indica se a quantidade de ids é 0
 			String caron = "[";
 			for (SolicitacaoVagasDomain solicitacaoVagas : SolicitacaoVagasBusiness.solicitacoesVagas) {
 				if (solicitacaoVagas.getIdSessao().equals(login)) {
+					if (!flag) {
+						caron +=",";
+					}
 					caron += solicitacaoVagas.getIdCarona();
+					flag = false;
 				}
 			}
 			return caron + "]";
@@ -135,6 +137,7 @@ public class PerfilBusiness {
 
 		if (atributo.equals("caronas que não funcionaram")) {
 			int caron = 0;
+			String caronas = "";
 			for (String idCarona : caronasNaoFuncionaram) {
 				if (CaronaBusiness.ehMotorista(login, idCarona)) {
 					caron++;
@@ -167,10 +170,8 @@ public class PerfilBusiness {
 
 		return new UsuarioBusiness().getAtributoUsuario(login, atributo);
 	}
-
-	/**
-	 * Falta implementar
-	 */
+	
+	
 	public void zerarSistema() {
 		caronasSegurasTranquilas.clear();
 		caronasNaoFuncionaram.clear();
@@ -198,6 +199,5 @@ public class PerfilBusiness {
 		if (review.equals("não faltou")) {
 			presenteNasVagas.add(loginCaroneiro);
 		}
-
 	}
 }

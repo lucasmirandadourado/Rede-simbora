@@ -30,20 +30,23 @@ public class PersistenciaTest {
 		carona = new CaronaBusiness();
 		solicitarPontoVaga = new SolicitacaoPontoDeEncontroBusiness();
 		solicitarVaga = new SolicitacaoVagasBusiness();
-		usuario.usuarios.clear();
+		
+		usuario.encerrarSistema();
 		sessao.getSessoes().clear();
 		sessao.getUsuarios().clear();
-		carona.getCaronas().clear();
+		carona.encerrarSistema();
 		solicitarPontoVaga.encerrarSistema();
 		solicitarVaga.encerrarSistema();
-	}
 
-	@Test
-	public void criarUsuarios() {
 		usuario.criarUsuario("mark", "m@rk", "Mark Zuckerberg",
 				"Palo Alto, California", "mark@acebbok.com");
 		usuario.criarUsuario("steve", "5t3v3", "Steve Paul Jobs",
 				"Palo Alto, California", "jobs@apple.com");
+
+	}
+
+	@Test
+	public void criarUsuarios() {
 
 		try {
 			sessao.abrirSessao("steve", "5t3v3");
@@ -182,7 +185,6 @@ public class PersistenciaTest {
 		sessao.encerrarSessao("mark");
 		sessao.encerrarSessao("steve");
 
-
 		// Inicializar o sistemam
 		try {
 			sessao.abrirSessao("mark", "m@rk");
@@ -223,7 +225,7 @@ public class PersistenciaTest {
 		try {
 			assertEquals("1", carona.getCaronaUsuario("mark", "2"));
 		} catch (Exception e) {
-			fail();			
+			fail();
 		}
 		try {
 			assertEquals("São Francisco",
