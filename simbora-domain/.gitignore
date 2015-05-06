@@ -1,3 +1,6 @@
 /target/
 /.apt_generated/
 *.class
+*.xml
+*.properties
+*.classpath

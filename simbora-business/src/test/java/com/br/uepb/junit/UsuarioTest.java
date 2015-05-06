@@ -70,7 +70,7 @@ public class UsuarioTest {
 	}
 
 	@Test
-	public void criarUsuario_EI() {
+	public void errosDeParametro () {
 
 		// Tentativas de criar usuário (Falta de algum atributo)
 		// criarUsuario login="mark" senha="m@rk" nome="Mark Zuckerberg"
