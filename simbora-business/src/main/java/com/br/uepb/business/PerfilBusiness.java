@@ -28,7 +28,7 @@ public class PerfilBusiness {
 	public static List<String> faltaramNasVagas = new ArrayList<>();
 	public static List<String> presenteNasVagas = new ArrayList<>();
 	private List<SolicitacaoVagasDomain> solicitacoesVagas = SolicitacaoVagasBusiness.solicitacoesVagas;
-	
+
 	/**
 	 * Retorna o login do usuario.
 	 * 
@@ -109,14 +109,14 @@ public class PerfilBusiness {
 			}
 			return caron + "]";
 		}
-		
+
 		if (atributo.equals("historico de vagas em caronas")) {
 			boolean flag = true;// indica se a quantidade de ids é 0
 			String caron = "[";
 			for (SolicitacaoVagasDomain solicitacaoVagas : SolicitacaoVagasBusiness.solicitacoesVagas) {
 				if (solicitacaoVagas.getIdSessao().equals(login)) {
 					if (!flag) {
-						caron +=",";
+						caron += ",";
 					}
 					caron += solicitacaoVagas.getIdCarona();
 					flag = false;
@@ -170,8 +170,7 @@ public class PerfilBusiness {
 
 		return new UsuarioBusiness().getAtributoUsuario(login, atributo);
 	}
-	
-	
+
 	public void zerarSistema() {
 		caronasSegurasTranquilas.clear();
 		caronasNaoFuncionaram.clear();
@@ -186,10 +185,11 @@ public class PerfilBusiness {
 		}
 		if (review.equals("não funcionou")) {
 			for (int i = 0; i < solicitacoesVagas.size(); i++) {
-				if (solicitacoesVagas.get(i).getIdSolicitacao().equals(loginCaroneiro)) {
-					
+				if (solicitacoesVagas.get(i).getIdSolicitacao()
+						.equals(loginCaroneiro)) {
+
 				}
-			}			
+			}
 			throw new PerfilException("Usuário não possui vaga na carona.");
 		}
 
@@ -199,5 +199,30 @@ public class PerfilBusiness {
 		if (review.equals("não faltou")) {
 			presenteNasVagas.add(loginCaroneiro);
 		}
+	}
+
+	public void reviewCarona(String idSessao, String idCaroneiro, String review)
+			throws PerfilException {
+		
+		if (!ehCaroneiro(idCaroneiro)) {
+			throw new PerfilException("Usuário não possui vaga na carona.");
+		} else {
+			if (review.equals("segura e tranquila")) {
+				caronasSegurasTranquilas.add(idCaroneiro);
+			} else if (review.equals("não funcionou")) {
+				caronasNaoFuncionaram.add(idCaroneiro);
+			} else{
+				throw new PerfilException("Opção inválida");
+			}
+		}
+	}
+
+	private boolean ehCaroneiro(String caroneiro) {
+		for (SolicitacaoVagasDomain solicitacoes : solicitacoesVagas) {
+			if (caroneiro.equals(solicitacoes.getIdCarona())) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
