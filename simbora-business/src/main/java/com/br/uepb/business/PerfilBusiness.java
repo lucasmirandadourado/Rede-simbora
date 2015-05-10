@@ -191,12 +191,10 @@ public class PerfilBusiness {
 		if (review.equals("não faltou")) {
 			presenteNasVagas.add(loginCaroneiro);
 			return;
-		}
-		if (review.equals("não funcionou")) {
+		} else if (review.equals("não funcionou")) {
 			caronasNaoFuncionaram.add(idCarona);
 			return;
-		}
-		if (review.equals("funcionou")) {
+		} else if (review.equals("funcionou")) {
 			caronasNaoFuncionaram.add(idCarona);
 			return;
 		}

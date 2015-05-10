@@ -65,8 +65,8 @@ public class ReviewCaronaTest {
 		}
 		// Carona 5
 		try {
-			carona.cadastrarCarona("mark", "Campina Grande", "João Pessoa",
-					"04/06/2013", "14:00", "2");
+			assertEquals("1",carona.cadastrarCarona("mark", "Campina Grande", "João Pessoa",
+					"04/06/2013", "14:00", "2"));
 		} catch (CaronaException e) {
 			fail();
 		}
@@ -351,6 +351,19 @@ public class ReviewCaronaTest {
 	@Test
 	public void possiveisErros() {
 
+		try {
+			assertEquals("0V", solicitacaoVagas.solicitarVaga("bill", "1"));
+		} catch (Exception e) {
+			fail();
+		}
+		
+		try {
+			solicitacaoVagas.aceitarSolicitacao("mark", "0V");
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail();
+		}
+		
 		try {
 			perfilCaroneiro.reviewVagaEmCarona("mark", "1", "bill",
 					"não dou mais carona");
