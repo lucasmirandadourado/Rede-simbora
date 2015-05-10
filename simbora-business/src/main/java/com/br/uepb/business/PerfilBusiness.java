@@ -149,8 +149,7 @@ public class PerfilBusiness {
 		if (atributo.equals("faltas em vagas de caronas")) {
 			int caron = 0;
 			for (String idUsuario : faltaramNasVagas) {
-				if (idUsuario.equals(login)
-						&& SolicitacaoVagasBusiness.ehCaroneiro(login)) {
+				if (idUsuario.equals(login)) {
 					caron++;
 				}
 			}
@@ -160,8 +159,7 @@ public class PerfilBusiness {
 		if (atributo.equals("presenças em vagas de caronas")) {
 			int caron = 0;
 			for (String idUsuario : presenteNasVagas) {
-				if (idUsuario.equals(login)
-						&& SolicitacaoVagasBusiness.ehCaroneiro(login)) {
+				if (idUsuario.equals(login)) {
 					caron++;
 				}
 			}
@@ -178,27 +176,33 @@ public class PerfilBusiness {
 		presenteNasVagas.clear();
 	}
 
-	public void reviewVagaEmCarona(String idSessao, String idCorona,
+	public void reviewVagaEmCarona(String idSessao, String idCarona,
 			String loginCaroneiro, String review) throws PerfilException {
-		if (review == null || review.trim().isEmpty()) {
-			throw new PerfilException("Opção inválida");
-		}
-		if (review.equals("não funcionou")) {
-			for (int i = 0; i < solicitacoesVagas.size(); i++) {
-				if (solicitacoesVagas.get(i).getIdSolicitacao()
-						.equals(loginCaroneiro)) {
-
-				}
-			}
+		/*precisa validar os atributos recebidos neste métodos*/
+		if(!SolicitacaoVagasBusiness.ehCaroneiro(loginCaroneiro, idCarona)){
 			throw new PerfilException("Usuário não possui vaga na carona.");
 		}
-
+		
 		if (review.equals("faltou")) {
 			faltaramNasVagas.add(loginCaroneiro);
+			return;
 		}
+		
 		if (review.equals("não faltou")) {
 			presenteNasVagas.add(loginCaroneiro);
+			return;
 		}
+		if (review.equals("não funcionou")) {
+			caronasNaoFuncionaram.add(idCarona);
+			return;
+		}
+		if (review.equals("funcionou")) {
+			caronasNaoFuncionaram.add(idCarona);
+			return;
+		}
+		
+		throw new PerfilException("Opção inválida.");
+		
 	}
 
 	public void reviewCarona(String idSessao, String idCaroneiro, String review)

@@ -355,7 +355,7 @@ public class ReviewCaronaTest {
 			perfilCaroneiro.reviewVagaEmCarona("mark", "1", "bill",
 					"não dou mais carona");
 		} catch (PerfilException e) {
-			assertEquals("Opção inválida", e.getMessage());
+			assertEquals("Opção inválida.", e.getMessage());
 		}
 
 		try {

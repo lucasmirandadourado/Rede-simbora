@@ -133,11 +133,16 @@ public class SimboraFacade {
 
 		return simboraEasyAccept.getPontosEncontro(idSessao, idCarona);
 	}
+	
+	public void reviewVagaEmCarona(String idSessao, String idCorona,
+			String loginCaroneiro, String review) throws PerfilException {
+		simboraEasyAccept.reviewVagaEmCarona(idSessao, idCorona, loginCaroneiro, review);
+	}
 
 	public static void main(String[] args) {
 		args = new String[] {"com.br.uepb.facade.SimboraFacade", "scripts/US01.txt",
 				"scripts/US02.txt", "scripts/US03.txt", "scripts/US04.txt", "scripts/US05.txt"
-				, "scripts/US06.txt", "scripts/US07.txt"};
+				, "scripts/US06.txt", "scripts/US07.txt", "scripts/US08.txt"};
 		EasyAccept.main(args); 
 	} 
 }
